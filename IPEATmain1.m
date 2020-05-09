@@ -13,9 +13,15 @@ clear all; close all; fclose all; clc;
 t0 = clock;
 
 %% Input Block for SWAT simulations
-settings.poolsize   = 4;
+settings.poolsize   = 2;
 [settings, rho, sigma]	= sim_settings(settings);
-rmdir(settings.out_path,'s');
+% rmdir(settings.out_path,'s');
+if exist([settings.out_path '\temp*'], 'dir')
+    rmdir ([settings.out_path '\temp*'],'s');
+end
+if exist([settings.out_path '\pool*'], 'dir')
+    rmdir ([settings.out_path '\pool*'],'s');
+end
 delete ([settings.out_path '\output.*']);
 delete ([settings.out_path '\outputb.*']);
 
@@ -61,7 +67,6 @@ save Extra Extra;
 nNum = numel(ParRange.minn); % number of uncertain parameters
 DistrFun  = 'unif'  ; % Parameter distribution
 DistrPar  = mat2cell(transpose(cell2mat(struct2cell(ParRange))),ones(1,nNum)); % Parameter ranges
-% x_new = ParRange.minn + rand(1,nNum) .* (ParRange.maxn - ParRange.minn);
 
 % Sample parameter space using the resampling strategy proposed by 
 % (Saltelli, 2008; for reference and more details, see help of functions
@@ -74,7 +79,6 @@ N = 100 ; % Base sample size.
 % variance-based indices is equal to N*(M+2) 
 X = AAT_sampling(SampStrategy,nNum,DistrFun,DistrPar,2*N);
 [ XA, XB, XC ] = vbsa_resampling(X);
-
 %  total input sampling
 XT = [XA; XB; XC];
 save XT XT
@@ -96,8 +100,12 @@ for ifile = 1:noDist
     fprintf(fid,'for iSim=%i:%i \n',iSim_S,iSim_E);
     fprintf(fid,'   x_new = XT(iSim,:); \n');
     fprintf(fid,'   fprintf(''========= SWAT-HM Simulation #: %%i =========\\n'', iSim); \n');
+    fprintf(fid,'   fprintf([datestr(now) ''\\n'']); \n');
     fprintf(fid,'   eval([''[ModPred_'' num2str(iSim) '', n_DayinMonth, n_DayinYear, Constr_val, penalize] = swatmodel1(ifile, x_new, Extra);'']); \n');
-    fprintf(fid,'   eval([''save ModPred_'' num2str(iSim) '' ModPred_'' num2str(iSim) '';'']); \n');
+    % save([Extra.settings.out_path '\ModPred_' num2str(iSim)],['ModPred_' num2str(iSim)])
+    % eval(['save(' '''' Extra.settings.out_path '\ModPred_' num2str(iSim) '''' ',' '''' 'ModPred_' num2str(iSim) '''' ');']);
+%     fprintf(fid,'   eval([''save ModPred_'' num2str(iSim) '' ModPred_'' num2str(iSim) '';'']); \n');
+    fprintf(fid,'   eval([''save('' '''''''' Extra.settings.out_path ''\\ModPred_'' num2str(iSim) '''''''' '','' '''''''' ''ModPred_'' num2str(iSim) '''''''' '');'']); \n');
     fprintf(fid,'   eval([''clear ModPred_'' num2str(iSim) '';'']); \n');
     fprintf(fid,'end \n');
     fprintf(fid,'toc \n');
