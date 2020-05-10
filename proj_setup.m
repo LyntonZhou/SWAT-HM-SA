@@ -76,7 +76,7 @@ while feof(fid1)==0;
     elseif L==71
         fprintf(fid2,'%s\r\n', '   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0');
     elseif L==79
-        fprintf(fid2,'%i\r\n', 1);
+        fprintf(fid2,'%16i\r\n', 0);
     else
         fprintf(fid2,'%s', line);
     end

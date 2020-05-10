@@ -2,6 +2,7 @@
 function [out_dates, n_DayinMonth, n_DayinYear]=proj_dates(out_data_path)
 % Determine the dates for output printing/summerization
 fid=fopen([out_data_path '\file.cio'],'r');
+
 L=0; % Counting variable
 while feof(fid)==0;
     L=L+1;
@@ -29,6 +30,7 @@ yout=dates(:,1); % Vector of output printing/summarization years
 mout=dates(:,2); % Vector of output printing/summarization months
 dout=dates(:,3); % Vector of output printing/summarization days
 out_dates=[yout,mout,dout];
+
 n_month = 1;
 for i=2:size(mout,1)
     if mout(i) ~= mout(i-1)
@@ -42,8 +44,9 @@ n_year = 1; n_DayinYear(n_year) = 1;
 for i=2:size(yout,1)
     if yout(i) ~= yout(i-1)
         n_year = n_year + 1;
-        n_DayinYear(n_year) = 1;
+        n_DayinYear(n_year) = 0;
     end
     n_DayinYear(n_year) = n_DayinYear(n_year)+1;
 end
+
 return

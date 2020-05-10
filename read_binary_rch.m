@@ -1,4 +1,5 @@
 function [out, n_DayinMonth, n_DayinYear] = read_binary_rch(out_data_path, nparam, IPRINT, n_sub)
+
 [out_dates, n_DayinMonth, n_DayinYear]=proj_dates(out_data_path);
 
 % Read output.rch file

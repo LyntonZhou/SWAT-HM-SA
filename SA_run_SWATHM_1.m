@@ -1,9 +1,10 @@
 %% Parallel Computing 
+clear; close all; fclose all; clc; 
 load XT 
 load Extra 
 tic 
 ifile = 1; 
-for iSim=1:5 
+for iSim=1:1 
    x_new = XT(iSim,:); 
    fprintf('========= SWAT-HM Simulation #: %i =========\n', iSim); 
    fprintf([datestr(now) '\n']); 

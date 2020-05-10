@@ -5,15 +5,20 @@ Project_directory = [Extra.settings.out_path '\pool' num2str(labindex)];
 current_TxtInOut  = [Extra.settings.out_path '\temp' num2str(labindex)];
 
 write_into_par_file(Extra, Pars, Project_directory);
-par_alter(Extra.settings.file_id, Extra.settings.n_sub, current_TxtInOut, Project_directory);
+alter_f=par_alter(Extra.settings.file_id, Extra.settings.n_sub, current_TxtInOut, Project_directory);
+disp(alter_f);
 
 %% Run SWAT.exe
 s= what; Prim_directory = s.path;
 cd(Project_directory);
 dos('swat2012rev664.exe');
 cd(Prim_directory);
-[SimOut, n_DayinMonth, n_DayinYear] = read_binary_rch(Project_directory,...
-                                    sum(Extra.settings.out_id(2:11)), Extra.settings.IPRINT, Extra.settings.n_sub);
+
+[SimOut, n_DayinMonth, n_DayinYear] = read_rch(Project_directory);
+
+% [SimOut, n_DayinMonth, n_DayinYear] = read_binary_rch(Project_directory,...
+%                                     sum(Extra.settings.out_id(2:11)), Extra.settings.IPRINT, Extra.settings.n_sub);
+
 [penalize, Constr_val] = ReadStdConstraints([Project_directory '\output.std'], Extra.settings.ApplyConstraints, Extra.settings.stdConstraints);
 
 % Save all Constraints

@@ -9,21 +9,23 @@
 function IPEATmain1
 
 addpath(genpath('F:\SWAT-HM\SWAT-HMV1.1\SensitivityAnalysis'))
-clear all; close all; fclose all; clc;
+clear; close all; fclose all; clc;
 t0 = clock;
 
 %% Input Block for SWAT simulations
 settings.poolsize   = 2;
 [settings, rho, sigma]	= sim_settings(settings);
 % rmdir(settings.out_path,'s');
-if exist([settings.out_path '\temp*'], 'dir')
-    rmdir ([settings.out_path '\temp*'],'s');
-end
-if exist([settings.out_path '\pool*'], 'dir')
-    rmdir ([settings.out_path '\pool*'],'s');
-end
-delete ([settings.out_path '\output.*']);
-delete ([settings.out_path '\outputb.*']);
+% mkdir(settings.out_path);
+
+% if exist([settings.out_path '\temp*'], 'dir')
+%     rmdir ([settings.out_path '\temp*'],'s');
+% end
+% if exist([settings.out_path '\pool*'], 'dir')
+%     rmdir ([settings.out_path '\pool*'],'s');
+% end
+% delete ([settings.out_path '\output.*']);
+% delete ([settings.out_path '\outputb.*']);
 
 if size(unique(settings.timesteps),2) > 1
     settings.IPRINT = 1;
@@ -93,6 +95,7 @@ for ifile = 1:noDist
     file_run = ['SA_run_SWATHM_' num2str(ifile) '.m'];
     fid = fopen(file_run,'w');
     fprintf(fid,'%%%% Parallel Computing \n');
+    fprintf(fid,'clear; close all; fclose all; clc; \n');
     fprintf(fid,'load XT \n');
     fprintf(fid,'load Extra \n');
     fprintf(fid,'tic \n');

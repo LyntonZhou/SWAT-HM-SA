@@ -40,7 +40,11 @@ while feof(fid1)==0;
     elseif L==11 && par_f(cellfun(@(x) isequal(x, 'GW_SPYLD'), symbol))==1
         GW_SPYLD=str2double(strtok(line))*(1+GW_SPYLD);
         fprintf(fid2,'%16.3f\t  %s\r\n', GW_SPYLD ,'| GW_SPYLD : Specific yield of the shallow aquifer [m3/m3]');
-
+    elseif L==12 && par_f(cellfun(@(x) isequal(x, 'SHALLST_N'), symbol))==1
+        fprintf(fid2,'%16.3f\t  %s\r\n', SHALLST_N ,'| SHALLST_N : Initial concentration of nitrate in shallow aq');
+    elseif L==14 && par_f(cellfun(@(x) isequal(x, 'HLIFE_NGW'), symbol))==1
+        GW_SPYLD=str2double(strtok(line))*(1+GW_SPYLD);
+        fprintf(fid2,'%16.3f\t  %s\r\n', HLIFE_NGW ,'| HLIFE_NGW : Ha;f-life of nitrate in the shallow aquifer [d');
     else
         fprintf(fid2,'%s',line); 
     end

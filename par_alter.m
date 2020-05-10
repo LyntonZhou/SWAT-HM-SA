@@ -7,6 +7,7 @@ symbol = upper(symbol);
 Reservoires = []; % [res_id,ReservoirSubNumber]
 
 %% Change basin-level parameters
+% basin-level files: .bsn, .wwq, plant.dat, pest.dat, .res
 % Change class of symbol from "Cell" to "char"
 ibsn = max(par_f(cellfun(@(x) isequal(x,'CMN'),symbol)==1)==1 || ...
         par_f(cellfun(@(x) isequal(x,'NPERCO'),symbol)==1)==1 || ...
@@ -56,6 +57,7 @@ iwwq = max(par_f(cellfun(@(x) isequal(x, 'AI0'), symbol)==1)==1 || ...
 icrop = par_f(cellfun(@(x) isequal(x, 'USLE_C'), symbol)==1)==1;
 
 ipest = par_f(cellfun(@(x) isequal(x, 'PEST_EFF'), symbol)==1)==1;
+
 ires  = max(par_f(cellfun(@(x) isequal(x, 'RES_K'), symbol)==1)==1 || ...
             par_f(cellfun(@(x) isequal(x, 'RES_RR'), symbol)==1)==1 || ...
             par_f(cellfun(@(x) isequal(x, 'WURTNF'), symbol)==1)==1 || ...
@@ -69,7 +71,8 @@ if icrop==1; crop(symbol, x, sensin_path, out_data_path); end
 if ipest==1; pest(symbol, x, sensin_path, out_data_path); end
 
     
-% Change subbasin-level parameters
+%% Change subbasin-level parameters
+% subbasin-level files: .sub, .rte, .swq, lwq, .res
 isub=max(par_f(cellfun(@(x) isequal(x, 'CH_KI'), symbol)==1)==1 || ...
         par_f(cellfun(@(x) isequal(x, 'CH_NI'), symbol)==1)==1 || ...
         par_f(cellfun(@(x) isequal(x, 'CH_SI'), symbol)==1)==1);
@@ -220,6 +223,7 @@ if imgt==1;
         mgt_f(hruid, hru_lnd, Soil_type, par_n, par_f, symbol, x, sensin_path, out_data_path);
     end
 end
+
 if ihru==1;
     for hru_no=1:n_hru;
         hruid=file_id(hru_no, 3);
@@ -227,6 +231,7 @@ if ihru==1;
         hru(hruid, hru_lnd, par_n, par_f, symbol, x, sensin_path, out_data_path);
     end
 end
+
 if isol==1;
     for hru_no=1:n_hru;
         hruid=file_id(hru_no, 3); 
@@ -234,6 +239,7 @@ if isol==1;
         sol(hruid, hru_lnd, par_n, par_f, symbol, x, sensin_path, out_data_path);
     end
 end
+
 if igw==1;
     for hru_no=1:n_hru;
         hruid=file_id(hru_no, 3);
@@ -241,6 +247,7 @@ if igw==1;
         gw(hruid, hru_lnd, par_n, par_f, symbol, x, sensin_path, out_data_path);
     end
 end
+
 if ichm==1;
     for hru_no=1:n_hru;
         hruid=file_id(hru_no, 3); 

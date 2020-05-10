@@ -1,4 +1,5 @@
 %% Parallel Computing 
+clear; close all; fclose all; clc; 
 load XT 
 load Extra 
 tic 
