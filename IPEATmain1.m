@@ -74,7 +74,7 @@ DistrPar  = mat2cell(transpose(cell2mat(struct2cell(ParRange))),ones(1,nNum)); %
 % (Saltelli, 2008; for reference and more details, see help of functions
 % vbsa_resampling and vbsa_indices) 
 SampStrategy = 'lhs' ;
-N = 100 ; % Base sample size.
+N = 2000 ; % Base sample size.
 % Comment: the base sample size N is not the actual number of input 
 % samples that will be evaluated. In fact, because of the resampling
 % strategy, the total number of model evaluations to compute the two
