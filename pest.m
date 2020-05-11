@@ -1,6 +1,6 @@
 function pest(symbol,x, sensin_path, out_data_path)
 
-PEST_EFF=x(cellfun(@(x) isequal(x, 'PEST_EFF'), symbol));
+PEST_EFF=x(strcmp(symbol, 'PEST_EFF'));
 
 file_read = [sensin_path '\pest.dat'];
 file_write = [out_data_path '\pest.dat'];

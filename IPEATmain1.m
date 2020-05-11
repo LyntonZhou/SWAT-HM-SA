@@ -13,7 +13,7 @@ clear; close all; fclose all; clc;
 t0 = clock;
 
 %% Input Block for SWAT simulations
-settings.poolsize   = 2;
+settings.poolsize   = 1;
 [settings, rho, sigma]	= sim_settings(settings);
 % rmdir(settings.out_path,'s');
 % mkdir(settings.out_path);
@@ -42,7 +42,7 @@ settings.file_id = id_func(settings.n_sub, settings.outTemp{1});
 
 % [~, Symbol, ~, ~, x0, par_f, lb, ub]
 Parlist = readParfile(settings.user_inputs_path);
-parameter_location = find(Parlist.par_f==1);
+par_location = find(Parlist.par_f==1);
 
 %% Define the measured data
 Measurement = load_measurements(settings, rho, sigma);
@@ -50,12 +50,12 @@ Measurement = load_measurements(settings, rho, sigma);
 if isempty(rho)
     settings.getRhoFromX = 1;
     L = length(settings.outlets);
-    ParRange.minn = [Parlist.lb(parameter_location)', .10*ones(1,L)];
-    ParRange.maxn = [Parlist.ub(parameter_location)', .99*ones(1,L)];
+    ParRange.minn = [Parlist.lb(par_location)', .10*ones(1,L)];
+    ParRange.maxn = [Parlist.ub(par_location)', .99*ones(1,L)];
 else
     settings.getRhoFromX = 0;
-    ParRange.minn = Parlist.lb(parameter_location)';
-    ParRange.maxn = Parlist.ub(parameter_location)';
+    ParRange.minn = Parlist.lb(par_location)';
+    ParRange.maxn = Parlist.ub(par_location)';
 end
 
 Extra.Parlist	= Parlist;
@@ -74,7 +74,7 @@ DistrPar  = mat2cell(transpose(cell2mat(struct2cell(ParRange))),ones(1,nNum)); %
 % (Saltelli, 2008; for reference and more details, see help of functions
 % vbsa_resampling and vbsa_indices) 
 SampStrategy = 'lhs' ;
-N = 2000 ; % Base sample size.
+N = 100 ; % Base sample size.
 % Comment: the base sample size N is not the actual number of input 
 % samples that will be evaluated. In fact, because of the resampling
 % strategy, the total number of model evaluations to compute the two
@@ -84,6 +84,18 @@ X = AAT_sampling(SampStrategy,nNum,DistrFun,DistrPar,2*N);
 %  total input sampling
 XT = [XA; XB; XC];
 save XT XT
+XT2 = XT;
+N=10;
+nNum=6;
+a=(1:N*(nNum+2))';
+b=reshape(transpose(reshape(a,N,nNum+2)),N*(nNum+2),1);
+kk=0;
+for ii=1:N
+    for jj=1:(nNum+2)
+        kk = kk+1;
+        XT2(kk,:) = XT((jj-1)*N+ii,:);
+    end
+end
 
 % auto-create SA_run_SWATHM_X.m file 
 delete ('SA_run_SWATHM_*');
@@ -217,15 +229,18 @@ function Parlist = readParfile(user_inputs_path)
 parFilename = [user_inputs_path '\IPEAT_Para.set'];
 
 [Parlist.par_n,...
- Parlist.Symbol,...
- Parlist.Input_File,...
- Parlist.units,...
- Parlist.x0,...
- Parlist.par_f,...
- Parlist.lb,...
- Parlist.ub] = ...
-            textread(parFilename,'%n%s%s%s%n%n%n%n','headerlines',2); %#ok<REMFF1>
-Parlist.parameter_location = find(Parlist.par_f==1);
+    Parlist.Symbol,...
+    Parlist.Input_File,...
+    Parlist.units,...
+    Parlist.x0,...
+    Parlist.par_f,...
+    Parlist.lb,...
+    Parlist.ub,...
+    Parlist.Alter_method,...
+    Parlist.lb_absolute,...
+    Parlist.ub_absolute] = ...
+    textread(parFilename,'%n%s%s%s%n%n%n%n%s%n%n','headerlines',2); 
+Parlist.par_location = find(Parlist.par_f==1);
 
 return
 
