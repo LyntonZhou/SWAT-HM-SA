@@ -1,6 +1,6 @@
 function SA_setting
 
-addpath(genpath('F:\SWAT-HM\SWAT-HMV1.1\SensitivityAnalysis'))
+addpath(genpath('..\SA'))
 clear; close all; fclose all; clc;
 t0 = clock;
 
@@ -75,21 +75,23 @@ X = AAT_sampling(SampStrategy,nNum,DistrFun,DistrPar,2*N);
 [ XA, XB, XC ] = vbsa_resampling(X);
 %  total input sampling
 XT = [XA; XB; XC];
-save XT XT
-XT2 = XT;
-N=10;
-nNum=6;
-a=(1:N*(nNum+2))';
-b=reshape(transpose(reshape(a,N,nNum+2)),N*(nNum+2),1);
-kk=0;
-for ii=1:N
-    for jj=1:(nNum+2)
-        kk = kk+1;
-        XT2(kk,:) = XT((jj-1)*N+ii,:);
-    end
-end
+save XT XT 
 
-% auto-create SA_run_SWATHM_X.m file 
+% XT2 = XT;
+% N=10;
+% nNum=6;
+% a=(1:N*(nNum+2))';
+% b=reshape(transpose(reshape(a,N,nNum+2)),N*(nNum+2),1);
+% kk=0;
+% for ii=1:N
+%     for jj=1:(nNum+2)
+%         kk = kk+1;
+%         XT2(kk,:) = XT((jj-1)*N+ii,:);
+%     end
+% end
+
+% auto-create SA_run_SWATHM_X.m file
+
 delete ('SA_run_SWATHM_*');
 noDist = settings.poolsize;
 for ifile = 1:noDist
