@@ -46,18 +46,8 @@ while feof(fid1)==0;
     elseif L==10 && par_f(strcmp(symbol, 'SNO50COV'))==1;
 %         SNO50COV   = x(strcmp(symbol, 'SNO50COV'));
         SNO50COV=par_value(x, line, alter_m, lba, uba, symbol, 'SNO50COV');
-        fprintf(fid2,'%16.3f    %s\r\n', SNO50COV ,'| SNO50COV : Fraction of snow volume represented by SNOCOVMX that corresponds to 50% snow cover');
-        
-    elseif L==13 && par_f(strcmp(symbol, 'ESCO'))==1;
-%         ESCO   = x(strcmp(symbol, 'ESCO'));
-        ESCO=par_value(x, line, alter_m, lba, uba, symbol, 'ESCO');
-        fprintf(fid2,'%16.3f    %s\r\n', ESCO,'| ESCO: soil evaporation compensation factor');
-        
-    elseif L==14 && par_f(strcmp(symbol, 'EPCO'))==1;
-%         EPCO   = x(strcmp(symbol, 'EPCO'));
-        EPCO=par_value(x, line, alter_m, lba, uba, symbol, 'EPCO');
-        fprintf(fid2,'%16.3f    %s\r\n', EPCO,'| EPCO: plant water uptake compensation factor');
-        
+        fprintf(fid2,'%16.3f    %s\r\n', SNO50COV ,'| SNO50COV : Fraction of snow volume represented by SNOCOVMX that corresponds to 50% snow cover');        
+      
     elseif L==15 && par_f(strcmp(symbol, 'EVLAI'))==1;
 %         EVLAI   = x(strcmp(symbol, 'EVLAI'));
 %         EVLAI=str2double(strtok(line))*(1+EVLAI);
