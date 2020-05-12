@@ -1,4 +1,4 @@
-function [SimOut, n_DayinMonth, n_DayinYear, Constr_val, penalize] = swatmodel1(labindex, Pars, Extra)
+function [SimOut, n_DayinMonth, n_DayinYear] = swatmodel1(labindex, Pars, Extra)
 %% write into IPEAT_Para.set
 % labindex = 1;
 Project_directory = [Extra.settings.out_path '\pool' num2str(labindex)];
@@ -22,18 +22,6 @@ cd(Prim_directory);
 % [SimOut, n_DayinMonth, n_DayinYear] = read_binary_rch(Project_directory,...
 %                                     sum(Extra.settings.out_id(2:11)), Extra.settings.IPRINT, Extra.settings.n_sub);
 
-[penalize, Constr_val] = ReadStdConstraints([Project_directory '\output.std'], Extra.settings.ApplyConstraints, Extra.settings.stdConstraints);
-
-% Save all Constraints
-constraints_matfile = [Project_directory '\constraints.mat'];
-if ~exist(constraints_matfile, 'file')
-    new_Constraints = Constr_val; %#ok<*NASGU>
-    save(constraints_matfile, 'new_Constraints');
-else
-    load(constraints_matfile);
-    new_Constraints = [new_Constraints; Constr_val]; %#ok<NODEF>
-    save(constraints_matfile, 'new_Constraints');
-end
 return
 
 

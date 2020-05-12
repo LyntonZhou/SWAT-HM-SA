@@ -1,6 +1,7 @@
 function SA_setting
 
-addpath(genpath('..\SA'))
+addpath(genpath('\SA'))
+
 clear; close all; fclose all; clc;
 t0 = clock;
 
@@ -58,6 +59,7 @@ save Extra Extra;
 %% Lingfeng Zhou
 % Perform VBSA sampling
 % Define input distribution and ranges:
+load Extra
 nNum = numel(ParRange.minn); % number of uncertain parameters
 DistrFun  = 'unif'  ; % Parameter distribution
 DistrPar  = mat2cell(transpose(cell2mat(struct2cell(ParRange))),ones(1,nNum)); % Parameter ranges
@@ -75,7 +77,7 @@ X = AAT_sampling(SampStrategy,nNum,DistrFun,DistrPar,2*N);
 [ XA, XB, XC ] = vbsa_resampling(X);
 %  total input sampling
 XT = [XA; XB; XC];
-save([''XT],'XT') 
+save XT XT 
 
 % XT2 = XT;
 % N=10;
@@ -90,7 +92,8 @@ save([''XT],'XT')
 %     end
 % end
 
-% auto-create SA_run_SWATHM_X.m file 
+% auto-create SA_run_SWATHM_X.m file
+
 delete ('SA_run_SWATHM_*');
 noDist = settings.poolsize;
 for ifile = 1:noDist

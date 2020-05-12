@@ -1,14 +1,15 @@
 function SA_setting
 
-addpath(genpath('..\SA'))
+addpath(genpath('.\SA'))
+
 clear; close all; fclose all; clc;
 t0 = clock;
 
 %% Input Block for SWAT simulations
 settings.poolsize   = 1;
 [settings, rho, sigma]	= sim_settings(settings);
-% rmdir(settings.out_path,'s');
-% mkdir(settings.out_path);
+rmdir(settings.out_path,'s');
+mkdir(settings.out_path);
 
 % if exist([settings.out_path '\temp*'], 'dir')
 %     rmdir ([settings.out_path '\temp*'],'s');
@@ -58,6 +59,7 @@ save Extra Extra;
 %% Lingfeng Zhou
 % Perform VBSA sampling
 % Define input distribution and ranges:
+% load Extra
 nNum = numel(ParRange.minn); % number of uncertain parameters
 DistrFun  = 'unif'  ; % Parameter distribution
 DistrPar  = mat2cell(transpose(cell2mat(struct2cell(ParRange))),ones(1,nNum)); % Parameter ranges
@@ -110,7 +112,7 @@ for ifile = 1:noDist
     fprintf(fid,'   x_new = XT(iSim,:); \n');
     fprintf(fid,'   fprintf(''========= SWAT-HM Simulation #: %%i =========\\n'', iSim); \n');
     fprintf(fid,'   fprintf([datestr(now) ''\\n'']); \n');
-    fprintf(fid,'   eval([''[ModPred_'' num2str(iSim) '', n_DayinMonth, n_DayinYear, Constr_val, penalize] = swatmodel1(ifile, x_new, Extra);'']); \n');
+    fprintf(fid,'   eval([''[ModPred_'' num2str(iSim) '', n_DayinMonth, n_DayinYear] = swatmodel1(ifile, x_new, Extra);'']); \n');
     % save([Extra.settings.out_path '\ModPred_' num2str(iSim)],['ModPred_' num2str(iSim)])
     % eval(['save(' '''' Extra.settings.out_path '\ModPred_' num2str(iSim) '''' ',' '''' 'ModPred_' num2str(iSim) '''' ');']);
 %     fprintf(fid,'   eval([''save ModPred_'' num2str(iSim) '' ModPred_'' num2str(iSim) '';'']); \n');
