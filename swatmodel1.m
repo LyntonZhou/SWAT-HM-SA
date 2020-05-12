@@ -14,7 +14,7 @@ disp('_______________________________________')
 %% Run SWAT.exe
 s= what; Prim_directory = s.path;
 cd(Project_directory);
-dos('swat2012rev664.exe');
+dos('swat.exe');
 cd(Prim_directory);
 
 [SimOut, n_DayinMonth, n_DayinYear] = read_rch(Project_directory);
