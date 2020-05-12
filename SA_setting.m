@@ -11,15 +11,6 @@ settings.poolsize   = 1;
 rmdir(settings.out_path,'s');
 mkdir(settings.out_path);
 
-% if exist([settings.out_path '\temp*'], 'dir')
-%     rmdir ([settings.out_path '\temp*'],'s');
-% end
-% if exist([settings.out_path '\pool*'], 'dir')
-%     rmdir ([settings.out_path '\pool*'],'s');
-% end
-% delete ([settings.out_path '\output.*']);
-% delete ([settings.out_path '\outputb.*']);
-
 if size(unique(settings.timesteps),2) > 1
     settings.IPRINT = 1;
 else
