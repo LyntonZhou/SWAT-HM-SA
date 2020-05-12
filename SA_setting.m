@@ -1,12 +1,4 @@
-% ======================================================================= %
-%  Integrated Parameter Estimation and Uncertainty Analysis Tool (IPEAT)  %
-%                             Developed by                                %
-%                            Haw Yen , Ph.D.                              %
-%      Colorado State University / USDA-ARS / Texas A&M University        %
-%                                                                         %
-%                       last update 2018-02-01(Thu)                       %
-% ======================================================================= %
-function IPEATmain1
+function SA_setting
 
 addpath(genpath('F:\SWAT-HM\SWAT-HMV1.1\SensitivityAnalysis'))
 clear; close all; fclose all; clc;
@@ -147,7 +139,7 @@ disp(['runtime: ' num2str(runtime1) ' min     ' num2str(runtime2) ' sec'])
 return
 
 
-function [settings,fid_AllOutputs] = copySWATfolder(settings, Restart,fid_AllOutputs)
+function [settings, fid_AllOutputs] = copySWATfolder(settings, Restart, fid_AllOutputs)
 TxtInOut_path       = settings.TxtInOut_path;
 user_inputs_path    = settings.user_inputs_path;
 out_path            = settings.out_path;
@@ -226,6 +218,7 @@ return
 
 
 function Parlist = readParfile(user_inputs_path)
+
 parFilename = [user_inputs_path '\IPEAT_Para.set'];
 
 [Parlist.par_n,...
@@ -240,6 +233,7 @@ parFilename = [user_inputs_path '\IPEAT_Para.set'];
     Parlist.lb_absolute,...
     Parlist.ub_absolute] = ...
     textread(parFilename,'%n%s%s%s%n%n%n%n%s%n%n','headerlines',2); 
+
 Parlist.par_location = find(Parlist.par_f==1);
 
 return
