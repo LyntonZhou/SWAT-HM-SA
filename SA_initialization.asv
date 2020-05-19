@@ -1,22 +1,23 @@
-function SA_setting
+function SA_initialization
 
+% add path of sensitivity analysis functions 
 addpath(genpath('.\SA'))
 
 clear; close all; fclose all; clc;
 t0 = clock;
 
-%% Input Block for SWAT-HM sensitivity simulations
+% Input Block for SWAT/SWAT-HM simulations
 settings.poolsize   = 1;
 [settings, rho, sigma]	= sim_settings(settings);
-rmdir(settings.out_path,'s');
-mkdir(settings.out_path);
 
 if size(unique(settings.timesteps),2) > 1
     settings.IPRINT = 1;
 else
     settings.IPRINT = unique(settings.timesteps);
 end
+
 [DDSPar, Extra, Restart] = loadDDSSetting;
+
 fid_AllOutputs = zeros();
 [settings,fid_AllOutputs] = copySWATfolder(settings, Restart,fid_AllOutputs);
 
@@ -29,7 +30,7 @@ Parlist = readParfile(settings.user_inputs_path);
 par_location = find(Parlist.par_f==1);
 
 %% Define the measured data
-Measurement = load_measurements(settings, rho, sigma);
+% Measurement = load_measurements(settings, rho, sigma);
 
 if isempty(rho)
     settings.getRhoFromX = 1;
@@ -59,7 +60,7 @@ DistrPar  = mat2cell(transpose(cell2mat(struct2cell(ParRange))),ones(1,nNum)); %
 % (Saltelli, 2008; for reference and more details, see help of functions
 % vbsa_resampling and vbsa_indices) 
 SampStrategy = 'lhs' ;
-N = 100 ; % Base sample size.
+N = 200 ; % Base sample size.
 % Comment: the base sample size N is not the actual number of input 
 % samples that will be evaluated. In fact, because of the resampling
 % strategy, the total number of model evaluations to compute the two
@@ -135,6 +136,7 @@ return
 
 
 function [settings, fid_AllOutputs] = copySWATfolder(settings, Restart, fid_AllOutputs)
+
 TxtInOut_path       = settings.TxtInOut_path;
 user_inputs_path    = settings.user_inputs_path;
 out_path            = settings.out_path;
@@ -142,6 +144,9 @@ poolsize            = settings.poolsize;
 IPRINT              = settings.IPRINT;
 simdate             = settings.simdate;
 n_warmup            = settings.n_warmup;
+
+rmdir(out_path,'s');
+mkdir(out_path);
 
 %% Project Setup
 out_id    = [0  ,1 ,1  ,1   ,1   ,1   ,1   ,1   ,1   ,1     ,1     ,0 ,0 ,0];
@@ -163,9 +168,11 @@ for i=1:poolsize
     copyfile(user_inputs_path, outTemp{i});
     copyfile(swat_directory, outTemp{i});
     copyfile(bflow_directory, outTemp{i});
+    disp(['copy temp' num2str(i) ' done'])
     
     outPool{i} = [out_path '\pool' num2str(i)]; %#ok<AGROW>
     copyfile(outTemp{i}, outPool{i});
+    disp(['copy pool' num2str(i) ' done'])
 
     n_sub = proj_setup(outPool{i}, out_id, ICALIB, IPRINT, simdate, n_warmup);
 end
@@ -209,6 +216,7 @@ settings.fid_errOut  = fid_errOut;
 settings.fid_DDSOut  = fid_DDSOut;
 settings.fid_Constraints = fid_Constraints;
 settings.fid_CF      = fid_CF;
+
 return
 
 

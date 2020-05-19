@@ -6,7 +6,15 @@ addpath(genpath('.\SA'))
 clear; close all; fclose all; clc;
 t0 = clock;
 
+<<<<<<< HEAD
 % Input Block for SWAT/SWAT-HM simulations
+=======
+<<<<<<<< HEAD:SA_setting.m
+%% Input Block for SWAT-HM sensitivity simulations
+========
+% Input Block for SWAT/SWAT-HM simulations
+>>>>>>>> 393c9fc95265a06cda658f5c49601adf79380850:SA_initialization.m
+>>>>>>> 393c9fc95265a06cda658f5c49601adf79380850
 settings.poolsize   = 1;
 [settings, rho, sigma]	= sim_settings(settings);
 
