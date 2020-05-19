@@ -6,8 +6,10 @@ current_TxtInOut  = [Extra.settings.out_path '\temp' num2str(labindex)];
 
 disp('_______________________________________')
 disp('strat altering model parameters')
+disp('                               ')
 write_into_par_file(Extra, Pars, Project_directory);
 alter_f=par_alter(Extra.settings.file_id, Extra.settings.n_sub, current_TxtInOut, Project_directory);
+disp('                               ')
 disp(alter_f)
 disp('_______________________________________')
 

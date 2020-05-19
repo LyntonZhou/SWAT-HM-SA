@@ -64,10 +64,10 @@ while feof(fid1)==0;
         ADJ_PKR=par_value(x, line, alter_m, lba, uba, symbol, 'ADJ_PKR');
         fprintf(fid2,'%16.3f    %s\r\n', ADJ_PKR ,'| ADJ_PKR : Peak rate adjustment factor for sediment routing in the subbasin (tributary channels)');
         
-    elseif L==22 && par_f(strcmp(symbol, 'PRF'))==1;
-%         PRF   = x(strcmp(symbol, 'PRF'));
-        PRF=par_value(x, line, alter_m, lba, uba, symbol, 'PRF');
-        fprintf(fid2,'%16.3f    %s\r\n', PRF ,'| PRF : Peak rate adjustment factor for sediment routing in the main channel');
+    elseif L==22 && par_f(strcmp(symbol, 'PRF_BSN'))==1;
+%         PRF_BSN   = x(strcmp(symbol, 'PRF_BSN'));
+        PRF_BSN=par_value(x, line, alter_m, lba, uba, symbol, 'PRF_BSN');
+        fprintf(fid2,'%16.3f    %s\r\n', PRF_BSN ,'| PRF_BSN : Peak rate adjustment factor for sediment routing in the main channel');
         
     elseif L==23 && par_f(strcmp(symbol, 'SPCON'))==1;
 %         SPCON   = x(strcmp(symbol, 'SPCON'));
@@ -82,7 +82,7 @@ while feof(fid1)==0;
     elseif L==26 && par_f(strcmp(symbol, 'RCN'))==1;
 %         RCN   = x(strcmp(symbol, 'RCN'));
         RCN=par_value(x, line, alter_m, lba, uba, symbol, 'RCN');
-        fprintf(fid2,'%16.3f    %s\r\n', RCN,'| RCN: nitrogen in rainfall (ppm)');
+        fprintf(fid2,'%16.3f    %s\r\n', RCN,'| RCN: Concentration of nitrogen in rainfall (ppm)');
         
     elseif L==27 && par_f(strcmp(symbol, 'CMN'))==1;
 %         CMN   = x(strcmp(symbol, 'CMN'));
@@ -127,17 +127,17 @@ while feof(fid1)==0;
     elseif L==59 && par_f(strcmp(symbol, 'MSK_CO1'))==1;
 %         MSK_CO1   = x(strcmp(symbol, 'MSK_CO1'));
         MSK_CO1=par_value(x, line, alter_m, lba, uba, symbol, 'MSK_CO1');
-        fprintf(fid2,'%16.3f    %s\r\n', MSK_CO1 ,'| MSK_CO1');
+        fprintf(fid2,'%16.3f    %s\r\n', MSK_CO1 ,'| MSK_CO1 : Calibration coefficient used to control impact of the storage time constant (Km) for normal flow');
         
     elseif L==60 && par_f(strcmp(symbol, 'MSK_CO2'))==1;
 %         MSK_CO2   = x(strcmp(symbol, 'MSK_CO2'));
         MSK_CO2=par_value(x, line, alter_m, lba, uba, symbol, 'MSK_CO2');
-        fprintf(fid2,'%16.3f    %s\r\n', MSK_CO2 ,'| MSK_CO2');
+        fprintf(fid2,'%16.3f    %s\r\n', MSK_CO2 ,'| MSK_CO2 : Calibration coefficient used to control impact of the storage time constant (Km) for low flow');
         
     elseif L==61 && par_f(strcmp(symbol, 'MSK_X'))==1;
 %         MSK_X   = x(strcmp(symbol, 'MSK_X'));
         MSK_X=par_value(x, line, alter_m, lba, uba, symbol, 'MSK_X');
-        fprintf(fid2,'%16.3f    %s\r\n', MSK_X ,'| MSK_X');
+        fprintf(fid2,'%16.3f    %s\r\n', MSK_X ,'| MSK_X : Weighting factor controlling relative importance of inflow rate and outflow rate in determining water storage in reach segment');
         
     elseif L==66 && par_f(strcmp(symbol, 'EVRCH'))==1;
 %         EVRCH   = x(strcmp(symbol, 'EVRCH'));

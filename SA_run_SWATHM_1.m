@@ -4,7 +4,7 @@ load XT
 load Extra 
 tic 
 ifile = 1; 
-for iSim=1:1 
+for iSim=1:28400 
    x_new = XT(iSim,:); 
    fprintf('========= SWAT-HM Simulation #: %i =========\n', iSim); 
    fprintf([datestr(now) '\n']); 

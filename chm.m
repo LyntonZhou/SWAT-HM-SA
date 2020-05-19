@@ -1,11 +1,11 @@
-function chm(hruid,hru_lnd,sol_depth,sol_cbn,par_n,par_f,symbol,x, sensin_path, out_data_path)
+function chm(hruid, hru_lnd, sol_depth, sol_cbn, par_n, par_f, symbol, x, sensin_path, out_data_path)
 % chm is soil chemical input files
 
-hruid=char(hruid);
+hruid = char(hruid);
 hru_str  = [hruid '.chm'];
 n_layers = length(sol_depth);
 
-avg_depth= mean([sol_depth; [0 sol_depth(1:end-1)]]);
+avg_depth = mean([sol_depth; [0 sol_depth(1:end-1)]]);
 str_SolN = [ones(1,n_layers).*exp(-avg_depth/1000) zeros(1,10-length(sol_depth))];
 SOLN     = x(strcmp(symbol, 'SOLN'))*str_SolN;
 
