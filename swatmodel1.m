@@ -6,15 +6,19 @@ current_TxtInOut  = [Extra.settings.out_path '\temp' num2str(labindex)];
 
 disp('_______________________________________')
 disp('strat altering model parameters')
+disp('                               ')
 write_into_par_file(Extra, Pars, Project_directory);
 alter_f=par_alter(Extra.settings.file_id, Extra.settings.n_sub, current_TxtInOut, Project_directory);
+disp('                               ')
 disp(alter_f)
 disp('_______________________________________')
 
 %% Run SWAT.exe
 s= what; Prim_directory = s.path;
 cd(Project_directory);
-dos('swat.exe');
+% dos('swat.exe');
+dos('SWAT2012HM.exe');
+
 cd(Prim_directory);
 
 [SimOut, n_DayinMonth, n_DayinYear] = read_rch(Project_directory);

@@ -1,0 +1,60 @@
+Directory for 04TxtInOut
+F:\SWAT-HM\05TxtInOutACWdemo
+
+Directory for 03Obs&Para
+F:\SWAT-HM\03Obs&Para
+
+Directory for Simulation Outputs
+F:\SWAT-HM\test1
+
+Outlets
+6 6 6 
+
+IPRINT {1='daily', 0='monthly', and 2='annual'}
+1 0 0 
+
+[PleaseDoNotChangeDefaultValues]ICALIB {0='load only'}: Streamflow=cms,Sediment=ton=,P&N=kg=,Pesticide=mg
+0 0 0
+
+Output Variables (0-15): '0- Baseflow', '1-Streamflow','2-Sediment','3-org-N','4-org-P','5-NO_3-N','6-NH_4-N','7-NO_2-N','8-Mineral-P','9-Soluble Pesticide','10-Sorbed Pesticide','11-Total Phosphorus','12-Total Nitrogen','13-Total Pesticide','14-TKN', '15-NO2+NO3'
+1 2 6 
+
+Statistics (as Objective Functions): '1=PBIAS(%)','2=1-NS','3=R2','4=RMSE','5=SSE','6=LikelihoodFunction'
+2 2 2 
+
+OF Weights 
+1.5 1 1
+
+Standard Deviation (Measurement.Sigma [LikelihoodFunction only])
+1
+
+rho Coefficient of Correlation (Measurement.rho [LikelihoodFunction only])
+1
+
+Transformations [LikelihoodFunction only]: (Line 1= Method, Line 2= Parameter, Line 3 = "1" for Data "2" for Difference)'1=No Transformation', '2=Natural Log of data', '3=Box-Cox', '4=Manly', '5=Mudulus', '6=AR( . )', '7=ARMA(. , .)'
+1
+1
+1
+
+Apply Constraints (1 = YES, 0 = NO) for (1)DENITRIFICATION, (2) NO3 LEACHED, (3) P LEACHED, and (4) SSQ/(SQ+SSQ) NO3 Yield
+0 0 0 0
+
+Constraint Settings (1st Row: Lower Limit ; 2nd Row: Upper limit)
+0   0   0   0.6
+50  3   1   0.999
+
+nWarmup
+0
+
+Period
+2008 01 01
+2012 12 31
+
+Input Uncertainty Index (0 = exclude Input uncertainty , 1 = include Input uncertainty)
+0
+
+Measurement Uncertainty Index (0 = w/o measurement uncertainty , 1 = Probable Error Range , 2 = Probability Distribution)
+0
+
+Measurement Error (%)
+15 30 30 30 30

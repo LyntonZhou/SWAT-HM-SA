@@ -20,7 +20,7 @@ while feof(fid1)==0;
     elseif L==5 && par_f(strcmp(symbol, 'ALPHA_BF'))==1
 %         ALPHA_BF    = x(strcmp(symbol, 'ALPHA_BF'));
         ALPHA_BF=par_value(x, line, alter_m, lba, uba, symbol, 'ALPHA_BF');
-        fprintf(fid2,'%16.3f    %s\r\n', ALPHA_BF ,'| ALPHA_BF : BAseflow alpha factor [days]');
+        fprintf(fid2,'%16.3f    %s\r\n', ALPHA_BF ,'| ALPHA_BF : Baseflow alpha factor [days]');
         
     elseif L==6 && par_f(strcmp(symbol, 'GWQMN'))==1
 %         GWQMN       = x(strcmp(symbol, 'GWQMN'));
@@ -56,16 +56,17 @@ while feof(fid1)==0;
     elseif L==12 && par_f(strcmp(symbol, 'SHALLST_N'))==1
 %         SHALLST_N    = x(strcmp(symbol, 'SHALLST_N'));
         SHALLST_N=par_value(x, line, alter_m, lba, uba, symbol, 'SHALLST_N');
-        fprintf(fid2,'%16.3f    %s\r\n', SHALLST_N ,'| SHALLST_N : Initial concentration of nitrate in shallow aq');
+        fprintf(fid2,'%16.3f    %s\r\n', SHALLST_N ,'| SHALLST_N : Initial concentration of nitrate in shallow aquifer [mg N/l]');
         
     elseif L==14 && par_f(strcmp(symbol, 'HLIFE_NGW'))==1
 %         HLIFE_NGW    = x(strcmp(symbol, 'HLIFE_NGW'));
 %         HLIFE_NGW=str2double(strtok(line))*(1+HLIFE_NGW);
         HLIFE_NGW=par_value(x, line, alter_m, lba, uba, symbol, 'HLIFE_NGW');
-        fprintf(fid2,'%16.3f    %s\r\n', HLIFE_NGW ,'| HLIFE_NGW : Ha;f-life of nitrate in the shallow aquifer [d');
+        fprintf(fid2,'%16.3f    %s\r\n', HLIFE_NGW ,'| HLIFE_NGW : Half-life of nitrate in the shallow aquifer [days]');
         
     else
         fprintf(fid2,'%s',line); 
+        
     end
 end
 fclose(fid1);

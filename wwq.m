@@ -28,12 +28,12 @@ while feof(fid1)==0;
     elseif L==11 && par_f(strcmp(symbol, 'MUMAX'))==1;
 %         MUMAX  = x(strcmp(symbol, 'MUMAX'));
         MUMAX=par_value(x, line, alter_m, lba, uba, symbol, 'MUMAX');
-        fprintf(fid2,'%16.3f    %s\r\n',MUMAX,'| MUMAX : Maximum specific algal growth rate at 20oC [day-1]');
+        fprintf(fid2,'%16.3f    %s\r\n',MUMAX,'| MUMAX : Maximum specific algal growth rate at 20o C [day-1]');
         
     elseif L==12 && par_f(strcmp(symbol, 'RHOQ'))==1;
 %         RHOQ = x(strcmp(symbol, 'RHOQ'));
         RHOQ=par_value(x, line, alter_m, lba, uba, symbol, 'RHOQ');
-        fprintf(fid2,'%16.3f    %s\r\n',RHOQ,'| RHOQ : Algal respiration rate at 20?C [day-1]');
+        fprintf(fid2,'%16.3f    %s\r\n',RHOQ,'| RHOQ : Algal respiration rate at 20o C [day-1]');
         
     elseif L==15 && par_f(strcmp(symbol, 'K_N'))==1;
 %         K_N  = x(strcmp(symbol, 'K_N'));

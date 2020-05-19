@@ -43,7 +43,7 @@ while feof(fid1)==0;
     elseif L==11 && par_f(strcmp(symbol, 'EPCO'))==1;
         %         EPCO   = x(strcmp(symbol, 'EPCO'));
         EPCO=par_value(x, line, alter_m, lba, uba, symbol, 'EPCO');
-        fprintf(fid2,'%16.3f    %s\r\n', EPCO,'| EPCO: plant water uptake compensation factor');
+        fprintf(fid2,'%16.3f    %s\r\n', EPCO,'| EPCO : Plant water uptake compensation factor');
         
     elseif L==12 && par_f(strcmp(symbol, 'RSDIN'))==1;
         %         RSDIN    = x(strcmp(symbol, 'RSDIN'));

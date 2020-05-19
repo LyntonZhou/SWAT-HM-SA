@@ -1,4 +1,5 @@
 function [settings, rho, sigma] = sim_settings(settings)
+
 fid = fopen('..\02ControlFiles\optimization.set', 'r');
 L   = 0;
 while feof(fid) == 0

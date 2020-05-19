@@ -5,7 +5,7 @@ addpath(genpath('.\SA'))
 clear; close all; fclose all; clc;
 t0 = clock;
 
-%% Input Block for SWAT simulations
+%% Input Block for SWAT-HM sensitivity simulations
 settings.poolsize   = 1;
 [settings, rho, sigma]	= sim_settings(settings);
 rmdir(settings.out_path,'s');
